@@ -5,8 +5,6 @@ import useCartStore from "../store/useCartStore";
 
 const CartSection = () => {
   const { carts } = useCartStore();
-  console.log(carts)
-
 
   return (
     <>

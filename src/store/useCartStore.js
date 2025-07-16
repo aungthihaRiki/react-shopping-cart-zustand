@@ -14,7 +14,11 @@ const useCartStore = create((set) => ({
     },
   ],
   addCart: () => {},
-  removeCart: () => {},
+  removeCart: (cartId) => {
+    set((state) => ({
+        carts: state.carts.filter(cart => cart.id !== cartId )
+    }))
+  },
   increaseQuantity: (cartId) => {
     set((state) => ({
       carts: state.carts.map((cart) =>
