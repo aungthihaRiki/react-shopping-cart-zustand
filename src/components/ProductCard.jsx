@@ -2,6 +2,7 @@ import React from "react";
 import RatingSection from "./RatingSection";
 import { Link, useNavigate } from "react-router-dom";
 import useCartStore from "../store/useCartStore";
+import toast from "react-hot-toast";
 
 function ProductCard({
   product: {
@@ -27,6 +28,12 @@ function ProductCard({
       quantity:1,
     };
     addCart(cart);
+    toast.success("Added to cart");
+  }
+
+  const handleAddedCartBtn = (event) => {
+    event.stopPropagation();
+    toast.error("Already added to cart");
   }
   return (
     <div onClick={jumpToDetail} className="border px-4 py-2 flex flex-col justify-between items-start gap-2">
@@ -38,7 +45,7 @@ function ProductCard({
       <div className="flex justify-between w-full items-end">
         <p>{price} $</p>
         {carts.find((cart) => cart.productId == id) ? (
-          <button disabled className="border text-sm px-2 py-1 cursor-pointer bg-gray-600 text-white hover:bg-gray-500">
+          <button onClick={handleAddedCartBtn} className="border text-sm px-2 py-1 cursor-pointer bg-gray-600 text-white hover:bg-gray-500">
             Added
           </button>
         ) : (
