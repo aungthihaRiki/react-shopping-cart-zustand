@@ -1,9 +1,10 @@
 import React from "react";
 import ProductCard from "./ProductCard";
 import Container from "./Container";
-import products from "../data/products";
+import useProductStore from "../store/useProductStore";
 
 function ProductSection() {
+  const { products } = useProductStore();
 
   return (
     <Container>

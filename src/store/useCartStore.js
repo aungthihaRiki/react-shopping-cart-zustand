@@ -13,23 +13,34 @@ const useCartStore = create((set) => ({
       quantity: 3,
     },
   ],
-  addCart: () => {},
+  addCart: ({ id, productId, quantity }) => {
+    set((state) => ({
+      carts: [
+        ...state.carts,
+        { id: id, productId: productId, quantity: quantity },
+      ],
+    }));
+  },
   removeCart: (cartId) => {
     set((state) => ({
-        carts: state.carts.filter(cart => cart.id !== cartId )
-    }))
+      carts: state.carts.filter((cart) => cart.id !== cartId),
+    }));
   },
   increaseQuantity: (cartId) => {
     set((state) => ({
       carts: state.carts.map((cart) =>
-        cart.id === cartId ? { ...cart, quantity: cart.quantity + 1 } : { ...cart }
+        cart.id === cartId
+          ? { ...cart, quantity: cart.quantity + 1 }
+          : { ...cart }
       ),
     }));
   },
   decreaseQuantity: (cartId) => {
     set((state) => ({
       carts: state.carts.map((cart) =>
-        cart.id === cartId ? { ...cart, quantity: cart.quantity - 1 } : { ...cart }
+        cart.id === cartId
+          ? { ...cart, quantity: cart.quantity - 1 }
+          : { ...cart }
       ),
     }));
   },
