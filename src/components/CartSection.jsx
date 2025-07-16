@@ -5,13 +5,14 @@ import useCartStore from "../store/useCartStore";
 
 const CartSection = () => {
   const { carts } = useCartStore();
+  console.log(carts)
 
 
   return (
     <>
       <div className="flex flex-col gap-3 flex-grow">
         {carts.map((cart) => (
-          <Cart key={cart.id} cart={cart} />
+          <Cart key={cart.id} carted={cart} />
         ))}
 
         <div className="border-t py-2 mt-auto">

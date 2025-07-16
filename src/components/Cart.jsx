@@ -1,12 +1,26 @@
 import React from "react";
 import useProductStore from "../store/useProductStore";
+import useCartStore from "../store/useCartStore";
 
-const Cart = ({cart: { id, productId, quantity }}) => {
-
+const Cart = ({ carted: { id, productId, quantity } }) => {
   const { products } = useProductStore();
+  const { increaseQuantity, decreaseQuantity } = useCartStore();
 
-  const currentProduct = products.find(product => product.id == productId );
+
+  const currentProduct = products.find((product) => product.id == productId);
   const cost = currentProduct.price * quantity;
+
+  const handleIncreaseBtn = () => {
+    increaseQuantity(id);
+  };
+
+  const handleDecreaseBtn = () => {
+    if (quantity <= 1) {
+      confirm("Are you sure to delete?");
+    } else {
+      decreaseQuantity(id);
+    }
+  };
 
   return (
     <div className="grid grid-cols-6 gap-2 border px-5 py-3">
@@ -26,11 +40,17 @@ const Cart = ({cart: { id, productId, quantity }}) => {
       <div className="col-span-1 flex flex-col items-center">
         <h1 className="font-bold text-gray-800 mb-3">Quantity</h1>
         <div className="flex gap-2 items-center">
-          <button className="px-1.5 py-0.5 border cursor-pointer hover:bg-gray-400 active:scale-95 active:duration-100">
+          <button
+            onClick={handleDecreaseBtn}
+            className="px-1.5 py-0.5 border cursor-pointer hover:bg-gray-400 active:scale-95 active:duration-100"
+          >
             -
           </button>
           <span>{quantity}</span>
-          <button className="px-1.5 py-0.5 border cursor-pointer hover:bg-gray-400 active:scale-95 active:duration-100">
+          <button
+            onClick={handleIncreaseBtn}
+            className="px-1.5 py-0.5 border cursor-pointer hover:bg-gray-400 active:scale-95 active:duration-100"
+          >
             +
           </button>
         </div>

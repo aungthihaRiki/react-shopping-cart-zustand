@@ -15,8 +15,20 @@ const useCartStore = create((set) => ({
   ],
   addCart: () => {},
   removeCart: () => {},
-  increaseQuantity: () => {},
-  decreaseQuantity: () => {},
+  increaseQuantity: (cartId) => {
+    set((state) => ({
+      carts: state.carts.map((cart) =>
+        cart.id === cartId ? { ...cart, quantity: cart.quantity + 1 } : { ...cart }
+      ),
+    }));
+  },
+  decreaseQuantity: (cartId) => {
+    set((state) => ({
+      carts: state.carts.map((cart) =>
+        cart.id === cartId ? { ...cart, quantity: cart.quantity - 1 } : { ...cart }
+      ),
+    }));
+  },
 }));
 
 export default useCartStore;
