@@ -20,7 +20,7 @@ const CartSection = () => {
     <>
       <div className="flex flex-col gap-3 flex-grow">
         {carts.length == 0 ? (
-          <img src={emptyImage} alt="Empty" className="w-1/3 sm:w-1/2 mx-auto mt-5" />
+          <img src={emptyImage} alt="Empty" className="w-1/5 mx-auto mt-5" />
         ) : (
           carts.map((cart) => <Cart key={cart.id} carted={cart} />)
         )}
