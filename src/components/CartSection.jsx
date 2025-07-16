@@ -3,10 +3,19 @@ import Cart from "./Cart";
 import { Link } from "react-router-dom";
 import useCartStore from "../store/useCartStore";
 import emptyImage from "../assets/empty.png";
+import useProductStore from "../store/useProductStore";
 
 const CartSection = () => {
   const { carts } = useCartStore();
+  const { products } = useProductStore();
 
+  const total = carts.reduce((pv, cv) => {
+    const productPrice = products.find((el) => el.id == cv.productId).price;
+    return pv + productPrice * cv.quantity;
+  }, 0);
+
+  const tax = total * 0.03;
+  const netTotal = tax + total;
   return (
     <>
       <div className="flex flex-col gap-3 flex-grow">
@@ -20,15 +29,15 @@ const CartSection = () => {
           <div className="flex justify-end gap-15 mb-3">
             <div>
               <h2 className="text-gray-500 mb-3">Total</h2>
-              <p className="text-gray-700 font-bold text-lg">100$</p>
+              <p className="text-gray-700 font-bold text-lg">{total.toFixed(2)}$</p>
             </div>
             <div>
-              <h2 className="text-gray-500 mb-3">Tax (%)</h2>
-              <p className="text-gray-700 font-bold text-lg">100$</p>
+              <h2 className="text-gray-500 mb-3">Tax (3%)</h2>
+              <p className="text-gray-700 font-bold text-lg">{tax.toFixed(2)}$</p>
             </div>
             <div>
               <h2 className="text-gray-500 mb-3">Net Total</h2>
-              <p className="text-gray-700 font-bold text-lg">100$</p>
+              <p className="text-gray-700 font-bold text-lg">{netTotal.toFixed(2)}$</p>
             </div>
           </div>
           <div className="text-end">
