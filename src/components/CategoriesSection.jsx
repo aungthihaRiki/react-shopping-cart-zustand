@@ -1,15 +1,11 @@
 import React from "react";
 import CategoriesButton from "./CategoriesButton";
 import Container from "./Container";
-const categories = [
-  { id: 1, name: "electronics" },
-  { id: 2, name: "jewelery" },
-  { id: 3, name: "men's clothing" },
-  { id: 4, name: "women's clothing" },
-  { id: 5, name: "bady clothing" },
-];
+import useCategoryStore from "../store/useCategoryStore";
 
 const CategoriesSection = () => {
+  const { categories } = useCategoryStore();
+
   return (
     <div className="mb-3">
       <Container>
@@ -17,12 +13,10 @@ const CategoriesSection = () => {
           Product Categories
         </h2>
         <div className="flex overflow-x-scroll scrollbar-hide">
-          <CategoriesButton key={"all"} categoryName="All" current={true} />
           {categories.map((category) => (
             <CategoriesButton
               key={category.id}
-              categoryName={category.name}
-              current={false}
+              category={category}
             />
           ))}
         </div>
