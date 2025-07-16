@@ -2,6 +2,7 @@ import React from "react";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
 import useCartStore from "../store/useCartStore";
+import emptyImage from "../assets/empty.png";
 
 const CartSection = () => {
   const { carts } = useCartStore();
@@ -9,9 +10,11 @@ const CartSection = () => {
   return (
     <>
       <div className="flex flex-col gap-3 flex-grow">
-        {carts.map((cart) => (
-          <Cart key={cart.id} carted={cart} />
-        ))}
+        {carts.length == 0 ? (
+          <img src={emptyImage} alt="Empty" className="w-1/3 sm:w-1/2 mx-auto mt-5" />
+        ) : (
+          carts.map((cart) => <Cart key={cart.id} carted={cart} />)
+        )}
 
         <div className="border-t py-2 mt-auto">
           <div className="flex justify-end gap-15 mb-3">
@@ -33,7 +36,6 @@ const CartSection = () => {
               Order Now
             </Link>
           </div>
-
         </div>
       </div>
     </>
